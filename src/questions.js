@@ -68,5 +68,19 @@ export const questions = [
         question: 'Mount Everest är högre än 8000 meter.',
         options: ['Sant', 'Falskt'],
         correctAnswer: ['Sant']
+    },
+    {
+        id: 11,
+        type: 'checkbox',
+        question: 'Vilka av dessa är huvudstäder?',
+        options: ['Tokyo', 'Sydney', 'Ottawa', 'New York'],
+        correctAnswer: ['Tokyo', 'Ottawa']
+    },
+    {
+        id: 12,
+        type: 'multiple',
+        question: 'Vilken metod används för att lägga till ett element sist i en array i JavaScript?',
+        options: ['push()', 'append()', 'add()', 'insert()'],
+        correctAnswer: ['push()']
     }
 ];
