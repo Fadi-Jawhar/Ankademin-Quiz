@@ -5,7 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ankademin Quiz</title>
     <link rel="stylesheet" href="src/style.css" />
-    <script src="index.js" defer></script>
+    <script type="module" src="index.js" defer></script>
   </head>
-  <body></body>
+  <body class="light-mode">
+    <div class="container">
+      <header>
+        <h1>Ankademin Quiz</h1>
+        <button id="temaBtn" class="tema-btn">Byt tema</button>
+      </header>
+      <main id="quizContainer">
+        <div id="questionContainer"></div>
+        <div id="navigationButtons" class="navigation-buttons">
+          <button id="prevButton" class="nav-btn">← Föregående</button>
+          <button id="nextButton" class="nav-btn">Nästa →</button>
+        </div>
+        <button id="submitQuiz" class="submit-btn hidden">Lämna in</button>
+      </main>
+    </div>
+  </body>
 </html>

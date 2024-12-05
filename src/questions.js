@@ -64,10 +64,10 @@ export const questions = [
     },
     {
         id: 10,
-        type: 'boolean',
-        question: 'Mount Everest är högre än 8000 meter.',
-        options: ['Sant', 'Falskt'],
-        correctAnswer: ['Sant']
+        type: 'multiple',
+        question: 'Vilken metod används för att lägga till ett element sist i en array i JavaScript?',
+        options: ['push()', 'append()', 'add()', 'insert()'],
+        correctAnswer: ['push()']
     },
     {
         id: 11,
@@ -78,9 +78,9 @@ export const questions = [
     },
     {
         id: 12,
-        type: 'multiple',
-        question: 'Vilken metod används för att lägga till ett element sist i en array i JavaScript?',
-        options: ['push()', 'append()', 'add()', 'insert()'],
-        correctAnswer: ['push()']
+        type: 'boolean',
+        question: 'Mount Everest är högre än 8000 meter.',
+        options: ['Sant', 'Falskt'],
+        correctAnswer: ['Sant']
     }
 ];

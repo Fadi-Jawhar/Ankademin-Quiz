@@ -1,0 +1,11 @@
+body {
+    &.light-mode {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+    h1, h2, h3, p {
+        color: #333
+    }    
+}
