@@ -11,16 +11,23 @@
     <div class="container">
       <header>
         <h1>Ankademin Quiz</h1>
-        <button id="temaBtn" class="tema-btn">Byt tema</button>
+        <button id="temaBtn" class="tema-btn">Mörkt tema 🌙</button>
       </header>
       <main id="quizContainer">
         <div id="questionContainer"></div>
         <div id="navigationButtons" class="navigation-buttons">
           <button id="prevButton" class="nav-btn">← Föregående</button>
+          <span id="questionNumber" class="question-number"></span>
           <button id="nextButton" class="nav-btn">Nästa →</button>
         </div>
         <button id="submitQuiz" class="submit-btn hidden">Lämna in</button>
       </main>
+      <div id="resultContainer" class="hidden">
+        <h2>Resultat</h2>
+        <div id="score"></div>
+        <div id="detailedResults"></div>
+        <button id="restartQuiz" class="restart-btn">Börja om</button>
+      </div>
     </div>
   </body>
 </html>
