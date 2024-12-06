@@ -6,10 +6,16 @@ let userAnswers = new Array(questions.length).fill([]);
 
 // DOM-element som vi använder för att visa och hantera quizet.
 const questionContainer = document.querySelector('#questionContainer');
+const temaBtn = document.querySelector('#temaBtn');
 const prevButton = document.querySelector('#prevButton');
 const nextButton = document.querySelector('#nextButton');
-const temaBtn = document.querySelector('#temaBtn');
+const submitButton = document.querySelector('#submitQuiz');
+const restartButton = document.querySelector('#restartQuiz');
+const quizContainer = document.querySelector('#quizContainer');
 const questionNumber = document.querySelector('#questionNumber');
+const resultContainer = document.querySelector('#resultContainer');
+const scoreElement = document.querySelector('#score');
+const endResults = document.querySelector('#endResults');
 
 
 // Skapar ett nytt HTML-element som man kan anpassa med text, klass och andra inställningar.
@@ -87,6 +93,22 @@ function createQuestionElement(question, questionIndex) {
     return questionCard;
 }
 
+function handleAnswer(questionIndex) {
+    // Hitta alla inputs för den aktuella frågan
+    const inputs = document.querySelectorAll(`input[name="q${questionIndex}"]`);
+
+    // Uppdatera användarens svar för frågan
+    userAnswers[questionIndex] = Array.from(inputs)
+        .filter(input => input.checked) // Ta bara med de som är markerade
+        .map(input => {
+            const optionIndex = Number(input.id.split('-')[1]); // Plocka ut alternativets index
+            return questions[questionIndex].options[optionIndex]; // Hämta alternativets text
+        });
+
+    // Kolla om submit-knappen ska visas
+    updateSubmitButton();
+}
+
 function updateNavigationButtons(index) {
 
     // Uppdatera texten som visar vilken fråga man är på
@@ -113,6 +135,66 @@ function showQuestion(index) {
     currentQuestionIndex = index;
 }
 
+
+function updateSubmitButton() {
+    // Kolla om alla frågor har minst ett svar
+    const allAnswered = userAnswers.every(answer => answer.length > 0);
+
+    // Visa eller göm submit-knappen beroende på om alla frågor är besvarade
+    submitButton.classList.toggle('hidden', !allAnswered);
+}
+
+function calculateScore() {
+    // Loopar igenom alla frågor och kollar om användarens svar är rätt
+    return questions.reduce((accumulator, question, index) => {
+        // Kollar om användarens svar matchar det rätta svaret
+        const isCorrect = arraysEqual(userAnswers[index], question.correctAnswer);
+
+        // Om svaret är rätt, lägg till en poäng
+        if (isCorrect) accumulator.score++;
+
+        // Lägg till resultatet för denna fråga, oavsett rätt eller fel
+        accumulator.results.push({ ...question, isCorrect, userAnswer: userAnswers[index] });
+
+        return accumulator;
+    }, { score: 0, results: [] });
+}
+
+function arraysEqual(userAnswer, correctAnswer) {
+    // Kollar om längderna på de två svaren är samma och att varje element är lika
+    return userAnswer.length === correctAnswer.length && 
+        userAnswer.sort().every((value, index) => value === correctAnswer.sort()[index]);
+}
+
+function showResults({ score, results }) {
+    // Dölj quizet och visa resultatet för användaren
+    quizContainer.style.display = 'none';
+    resultContainer.classList.remove('hidden');
+
+    // Beräkna procenten för poängen och bestäm resultatets klass
+    const percentage = (score / questions.length) * 100;
+    const resultClass = percentage < 50 ? 'fail' : percentage <= 75 ? 'warning' : 'success';
+    const resultText = percentage < 50 ? 'Underkänt' : percentage <= 75 ? 'Bra jobbat' : 'Riktigt bra jobbat';
+
+    // Visa resultatet med poäng och rätt text beroende på resultatet
+    scoreElement.innerHTML = `
+        <div class="result-card ${resultClass}">
+            <h3>${resultText}</h3>
+            <p>Du fick ${score} rätt av ${questions.length} (${percentage.toFixed(1)}%)</p>
+        </div>
+    `;
+
+    // Visa alla frågor med användarens svar och de rätta svaren
+    endResults.innerHTML = results.map((result, i) => `
+        <div class="question-result ${result.correct ? 'correct' : 'incorrect'}">
+            <p><strong>Fråga ${i + 1}:</strong> ${result.question}</p>
+            <p>Ditt svar: ${result.userAnswer.join(', ')}</p>
+            ${result.correct ? '' : `<p>Rätt svar: ${result.correctAnswer.join(', ')}</p>`}
+        </div>
+    `).join('');
+}
+
+
 function initializeQuiz() {
     // Visa den första frågan när quizet startar
     showQuestion(0);
@@ -124,8 +206,17 @@ function initializeQuiz() {
     nextButton.addEventListener('click', () => {
         if (currentQuestionIndex < questions.length - 1) showQuestion(currentQuestionIndex + 1);
     });
+
+    // När användaren klickar på Lämna in knappen, räkna poängen och visa resultatet
+    submitButton.addEventListener('click', () => {
+        const results = calculateScore();
+        showResults(results);
+    });
+
+    // När användaren klickar på Börja om knappen, ladda om sidan 
+    restartButton.addEventListener('click', () => location.reload());
     
-    // Hantera klick på Tema-knappen för att växla mellan ljust och mörkt tema
+    // växla mellan ljust och mörkt tema
     temaBtn.addEventListener('click', () => {
         const body = document.body;
         const isDarkMode = body.classList.toggle('dark-mode');
