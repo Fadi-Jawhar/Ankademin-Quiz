@@ -109,6 +109,14 @@ function handleAnswer(questionIndex) {
     updateSubmitButton();
 }
 
+function updateSubmitButton() {
+    // Kolla om alla frågor har minst ett svar
+    const allAnswered = userAnswers.every(answer => answer.length > 0);
+
+    // Visa eller göm submit-knappen beroende på om alla frågor är besvarade
+    submitButton.classList.toggle('hidden', !allAnswered);
+}
+
 function updateNavigationButtons(index) {
 
     // Uppdatera texten som visar vilken fråga man är på
@@ -136,13 +144,7 @@ function showQuestion(index) {
 }
 
 
-function updateSubmitButton() {
-    // Kolla om alla frågor har minst ett svar
-    const allAnswered = userAnswers.every(answer => answer.length > 0);
 
-    // Visa eller göm submit-knappen beroende på om alla frågor är besvarade
-    submitButton.classList.toggle('hidden', !allAnswered);
-}
 
 function calculateScore() {
     // Loopar igenom alla frågor och kollar om användarens svar är rätt
@@ -186,10 +188,10 @@ function showResults({ score, results }) {
 
     // Visa alla frågor med användarens svar och de rätta svaren
     endResults.innerHTML = results.map((result, i) => `
-        <div class="question-result ${result.correct ? 'correct' : 'incorrect'}">
+        <div class="question-result ${result.isCorrect ? 'correct' : 'incorrect'}">
             <p><strong>Fråga ${i + 1}:</strong> ${result.question}</p>
             <p>Ditt svar: ${result.userAnswer.join(', ')}</p>
-            ${result.correct ? '' : `<p>Rätt svar: ${result.correctAnswer.join(', ')}</p>`}
+            ${result.isCorrect ? '' : `<p>Rätt svar: ${result.correctAnswer.join(', ')}</p>`}
         </div>
     `).join('');
 }
