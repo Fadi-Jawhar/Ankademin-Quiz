@@ -1,9 +1,48 @@
-body.light-mode {
-  font-family: Arial, sans-serif;
+* {
   margin: 0;
   padding: 0;
-  text-align: center;
+  box-sizing: border-box;
 }
-body h1, body h2, body h3, body p {
-  color: #333;
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #f5f6fa;
+  color: #2c3e50;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+header h1 {
+  color: #4a90e2;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 60vh;
+}
+
+.tema-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 12px;
+  background-color: #4a90e2;
+  color: white;
+  cursor: pointer;
 }

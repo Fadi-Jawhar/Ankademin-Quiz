@@ -38,8 +38,8 @@ function createInputOption(questionIndex, option, optionIndex, inputType, isChec
     // Skapa input-elementet med dess attribut
     const input = createElement('input', '', '', {
         type: inputType,
-        name: `q${questionIndex}`,
-        id: `q${questionIndex}-${optionIndex}`
+        name: `question${questionIndex}`,
+        id: `question${questionIndex}-${optionIndex}`
     });
     // Kolla om detta alternativ redan är markerat
     input.checked = isChecked;
@@ -95,7 +95,7 @@ function createQuestionElement(question, questionIndex) {
 
 function handleAnswer(questionIndex) {
     // Hitta alla inputs för den aktuella frågan
-    const inputs = document.querySelectorAll(`input[name="q${questionIndex}"]`);
+    const inputs = document.querySelectorAll(`input[name="question${questionIndex}"]`);
 
     // Uppdatera användarens svar för frågan
     userAnswers[questionIndex] = Array.from(inputs)

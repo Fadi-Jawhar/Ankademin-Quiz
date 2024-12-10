@@ -1,11 +1,63 @@
+// Variabler och mixins
+$primary-color: #4a90e2;
+$text-color: #2c3e50;
+$background-color: #f5f6fa;
+
+$spacing-sm: 1rem;
+$spacing-lg: 2rem;
+$border-radius-md: 12px;
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Reset och grundläggande styling
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    &.light-mode {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        text-align: center;
-    }
-    h1, h2, h3, p {
-        color: #333
-    }    
+  font-family: 'Inter', sans-serif;
+  background-color: $background-color;
+  color: $text-color;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 768px;
+  margin: 0 auto;
+  padding: $spacing-lg;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-lg;
+
+  h1 {
+    color: $primary-color;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+}
+
+main {
+  @include flex-center;
+  flex-direction: column;
+  min-height: 60vh;
+}
+
+.tema-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: $border-radius-md;
+  background-color: $primary-color;
+  color: white;
+  cursor: pointer;
 }
