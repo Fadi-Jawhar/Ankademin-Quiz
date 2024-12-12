@@ -73,8 +73,8 @@ export const questions = [
         id: 11,
         type: 'checkbox',
         question: 'Vilka av dessa är huvudstäder?',
-        options: ['Tokyo', 'Sydney', 'Ottawa', 'New York'],
-        correctAnswer: ['Tokyo', 'Ottawa']
+        options: ['Tokyo', 'Sydney', 'Baku', 'New York'],
+        correctAnswer: ['Tokyo', 'Baku']
     },
     {
         id: 12,

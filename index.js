@@ -197,7 +197,7 @@ function showResults({ score, results }) {
 }
 
 
-function initializeQuiz() {
+function startQuiz() {
     // Visa den första frågan när quizet startar
     showQuestion(0);
 
@@ -229,4 +229,4 @@ function initializeQuiz() {
 }
 
 // Starta quizet
-initializeQuiz();
+startQuiz();
